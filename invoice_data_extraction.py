@@ -4,6 +4,7 @@ import json
 import os
 import pandas as pd
 
+# Looping through the files
 files = os.listdir(r'A:\Projects\Invoice Data Extraction\Inputs')
 overall = {}
 count = 1
@@ -64,12 +65,14 @@ class Extract:
                     file_name[num] = self.file
 
 
+# Creating a Json file
     def json_create(self):
         # Creating a json file
         json_file = open(rf'A:\Projects\Invoice Data Extraction\Outputs\{self.file}.json', mode='w')
         json.dump(dicts, json_file)
         json_file.close()
 
+# Creating an Xlsx file
     def xlsx_create(self):
         # Creating an xlsx file
         df = pd.read_json(rf'A:\Projects\Invoice Data Extraction\Outputs\{self.file}.json')
@@ -93,6 +96,7 @@ for file in files:
     count += 1
 
 
+# Adding details of all the files into a seperate Xlsx file
 overall['Total_Amount'] = Total_amount
 overall['Order_Date'] = order_date
 overall['Order_Number'] = order_number
@@ -100,6 +104,7 @@ overall['GST_Number'] = gst_num
 overall['Biller_Name'] = biller_name
 overall['File_Name'] = file_name
 
+# Adding details of all the files into a seperate Json file
 json_file = open(r'A:\Projects\Invoice Data Extraction\Outputs\overall.json', 'w')
 json.dump(overall, json_file)
 json_file.close()
